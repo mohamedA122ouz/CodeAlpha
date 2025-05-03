@@ -27,15 +27,20 @@ export default function Home() {
       );
       let setFullYear = `${year}-${month}-${day}`;
       let date = new Date(setFullYear);
+      let dateNow = new Date(Date.now());
       let enable = true;
       console.log(month - 1);
       console.log(date.getMonth());
+
       if (date.getMonth()) {
         if (month - 1 != date.getMonth() && day) {
           updateState("Must be a valid day");
           console.log("day is not vaild");
           enable = false;
-        } else if (day) {
+        }else if(year== dateNow.getFullYear()&& (month > (dateNow.getMonth() + 1) || month == (dateNow.getMonth() + 1) && day >= dateNow.getDate() )){
+          updateState("Must be a valid date in the past");
+        }
+        else if (day) {
           updateState("");
         }
       }
@@ -57,7 +62,8 @@ export default function Home() {
                     validationError={
                       state
                         .toLocaleLowerCase()
-                        .includes(type.toLocaleLowerCase())
+                        .includes(type.toLocaleLowerCase())||state.toLocaleLowerCase()
+                        .includes("date")
                         ? state
                         : ""
                     }
@@ -77,7 +83,7 @@ export default function Home() {
           {(function tt(): JSX.Element[] {
             const arr = [output.days, output.months, output.years];
             return types.map((type, i) => {
-              return <ShowElement type={type} anError={state.includes("day")} value={arr[i]} />;
+              return <ShowElement type={type} anError={state.includes("valid")} value={arr[i]} />;
             });
           })()}
         </div>
