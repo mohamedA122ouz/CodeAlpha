@@ -1,4 +1,4 @@
-import { useRef, useState, type JSX, type RefObject } from "react";
+import { useEffect, useRef, useState, type JSX, type RefObject } from "react";
 import useCalcTime, { type date } from "~/Components/Hooks/useCalculator";
 import InputElement from "~/Components/Input/inputElement";
 import ShowElement from "~/Components/showContainer/showContainer";
@@ -77,7 +77,7 @@ export default function Home() {
           {(function tt(): JSX.Element[] {
             const arr = [output.days, output.months, output.years];
             return types.map((type, i) => {
-              return <ShowElement type={type} value={arr[i]} />;
+              return <ShowElement type={type} anError={state.includes("day")} value={arr[i]} />;
             });
           })()}
         </div>

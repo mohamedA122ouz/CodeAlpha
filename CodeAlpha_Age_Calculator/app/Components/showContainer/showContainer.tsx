@@ -2,9 +2,11 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 export default function ShowElement({
   type,
   value,
+  anError
 }: {
   type: string;
   value: number;
+  anError:boolean
 }) {
   const ref: RefObject<HTMLSpanElement> | RefObject<() => null> = useRef(
     () => null
@@ -20,12 +22,14 @@ export default function ShowElement({
   if (value != -1) {
     if (Interval !== null) clearInterval(Interval);
     let counter = 0;
-    Interval = setInterval(() => {
-      console.log("something");
-      const span: HTMLSpanElement = ref.current as unknown as HTMLSpanElement;
-      if (counter <= value) span.innerText = formatNumber(counter++);
-      else if (Interval !== null) clearInterval(Interval);
-    }, 0);
+    if(!anError){
+      Interval = setInterval(() => {
+        console.log("something");
+        const span: HTMLSpanElement = ref.current as unknown as HTMLSpanElement;
+        if (counter <= value) span.innerText = formatNumber(counter++);
+        else if (Interval !== null) clearInterval(Interval);
+      }, 0);
+    }
   }
   return (
     <div className="showContainer">
