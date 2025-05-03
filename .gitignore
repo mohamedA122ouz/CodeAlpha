@@ -1,0 +1,8 @@
+/Posts.md
+
+.DS_Store
+/CodeAlpha_Age_Calculator/node_modules/
+
+# React Router
+/CodeAlpha_Age_Calculator/.react-router/
+/CodeAlpha_Age_Calculator/build/
